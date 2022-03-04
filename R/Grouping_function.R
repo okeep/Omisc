@@ -54,12 +54,12 @@ Group_function<-function(data=NULL, x, levels, func=mean, center = FALSE, nested
       mean_vars<-c(mean_vars,paste(level_names[i], funcName, name_x[j], sep=" "))
       if(nested){
         form<-parse(text=paste(name_x[j],"~",paste(level_names[1:i], collapse=" + "),sep=" ", collapse = " "))
-        means<-aggregate(x=eval(form), data=data, FUN=func)
+        means<-aggregate(eval(form), data=data, FUN=func)
         names(means)<-c(level_names[1:i], mean_vars[length(mean_vars)])
         data<-merge(data,means,by=level_names[1:i])
       } else{
         form<-parse(text=paste(name_x[j],"~",paste(level_names[i], collapse=" + "),sep=" ", collapse = " "))
-        means<-aggregate(x=eval(form), data=data, FUN=func)
+        means<-aggregate(eval(form), data=data, FUN=func)
         names(means)<-c(level_names[i], mean_vars[length(mean_vars)])
         data<-merge(data,means,by=level_names[i])
       }
